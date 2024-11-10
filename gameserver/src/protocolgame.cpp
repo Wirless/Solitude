@@ -1139,22 +1139,6 @@ void ProtocolGame::sendCreatureLight(const Creature* creature)
 	NetworkMessage msg;
 	AddCreatureLight(msg, creature);
 	writeToOutputBuffer(msg);
-	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
-		if (creature->getPlayer()) {
-			// If the creature is a player, notify the spectator (player) about the walk-through
-			g_game.updateCreatureWalkthrough(creature);
-		}
-		else {
-			// If the creature is a monster, check if it has a master who is a player
-			if (creature->getMaster()) {
-				Player* master = creature->getMaster()->getPlayer();
-				if (master) {
-					// Notify the master about the creature's movement (walk-through)
-					g_game.updateCreatureWalkthrough(creature);
-				}
-			}
-		}
-	}
 }
 
 void ProtocolGame::sendWorldLight(LightInfo lightInfo)
