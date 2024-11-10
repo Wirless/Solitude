@@ -12496,4 +12496,54 @@
 		<attribute key="allowpickupable" value="true"/>
 	</item>
 	
+	<item id="5102" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	
+	<item id="5103" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5104" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5105" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5106" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5107" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5108" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5109" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5110" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5111" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5112" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	<item id="5113" name="shallow water">
+		<attribute key="fluidsource" value="water"/>
+		<attribute key="allowpickupable" value="true"/>
+	</item>
+	
 </items>
