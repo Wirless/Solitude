@@ -149,8 +149,8 @@ int32_t Weapons::getMaxWeaponDamage(uint32_t level, int32_t attackSkill, int32_t
 			maxWeaponDamage -= 4 * maxWeaponDamage / 10;
 		}
 
-		int32_t formula = (5 * (attackSkill) + 50) * maxWeaponDamage;
-
+		//int32_t formula = (5 * (attackSkill) + 50) * maxWeaponDamage;
+		int32_t formula = (5 * attackSkill + 50 + (level / 2)) * maxWeaponDamage;
 		int32_t rnd = rand() % 100;
 		maxWeaponDamage = formula * ((rand() % 100 + rnd) / 2) / 10000;
 		return maxWeaponDamage;
