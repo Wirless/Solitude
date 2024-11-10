@@ -355,6 +355,11 @@ ReturnValue Combat::canDoCombat(Creature* attacker, Creature* target)
 			if (target->isSummon()) {
 				const Player* targetMasterPlayer = target->getMaster()->getPlayer();
 				if (targetMasterPlayer) {
+					// Allow attack if the attacker is the master of the summon
+					if (targetMasterPlayer == attacker->getPlayer()) {
+						return g_events->eventCreatureOnTargetCombat(attacker, target);
+					}
+
 					// Allow attack if both players are in the same party, regardless of PvP zone
 					const Player* attackerPlayer = attacker->getPlayer();
 					if (attackerPlayer && attackerPlayer->getParty() && attackerPlayer->getParty() == targetMasterPlayer->getParty()) {
@@ -835,51 +840,87 @@ void Combat::doTargetCombat(Creature* caster, Creature* target, CombatDamage& da
 
 	bool success = params.noDamage;
 	if (!success) {
-		if (damage.type != COMBAT_MANADRAIN) {
-			BlockType_t blockType = g_game.combatBlockHit(damage, caster, target, params.blockedByShield, params.blockedByArmor, params.itemId != 0, params.ignoreResistances, damage.origin == ORIGIN_MELEE || damage.origin == ORIGIN_RANGED);
-			if (blockType != BLOCK_NONE) {
-				const int32_t oddAttack = rand();
-				if (blockType == BLOCK_ARMOR && oddAttack == 5 * (oddAttack / 5)) {
-					for (const auto& condition : params.conditionList) {
-						if (caster == target || !target->isImmune(condition->getType())) {
-							Condition* conditionCopy = condition->clone();
-							if (caster) {
-								if (Player* player = caster->getPlayer()) {
-									conditionCopy->setParam(CONDITION_PARAM_OWNERGUID, player->getGUID());
-								} else {
-									conditionCopy->setParam(CONDITION_PARAM_OWNER, caster->getID());
-								}
-							}
+		if (damage.type == COMBAT_HEALING) {
+			// Check if the world type is NO_PVP
+			if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+				// Check if the target is a monster
+				Monster* targetMonster = dynamic_cast<Monster*>(target); // Safe dynamic cast to Monster*
 
-							//TODO: infight condition until all aggressive conditions has ended
-							target->addCombatCondition(conditionCopy);
+				if (targetMonster) {
+					// Check if the monster has a master and if the master is not a player
+					Creature* master = targetMonster->getMaster();
+					if (master && !dynamic_cast<Player*>(master)) {
+						if (casterPlayer) {
+							// Only allow healing if the caster has secure mode disabled
+							if (!casterPlayer->hasSecureMode()) {
+								success = g_game.combatChangeHealth(caster, target, damage);
+							}
+							else {
+								success = false; // Prevent healing
+							}
+						}
+					}
+					else {
+						success = g_game.combatChangeHealth(caster, target, damage); // Allow healing if master is a player or no master
+					}
+				}
+				else {
+					// If the target is not a monster, proceed with the default healing logic
+					success = g_game.combatChangeHealth(caster, target, damage);
+				}
+			}
+
+		}
+		else {
+			if (damage.type != COMBAT_MANADRAIN) {
+				BlockType_t blockType = g_game.combatBlockHit(damage, caster, target, params.blockedByShield, params.blockedByArmor, params.itemId != 0, params.ignoreResistances, damage.origin == ORIGIN_MELEE || damage.origin == ORIGIN_RANGED);
+				if (blockType != BLOCK_NONE) {
+					const int32_t oddAttack = rand();
+					if (blockType == BLOCK_ARMOR && oddAttack == 5 * (oddAttack / 5)) {
+						for (const auto& condition : params.conditionList) {
+							if (caster == target || !target->isImmune(condition->getType())) {
+								Condition* conditionCopy = condition->clone();
+								if (caster) {
+									if (Player* player = caster->getPlayer()) {
+										conditionCopy->setParam(CONDITION_PARAM_OWNERGUID, player->getGUID());
+									}
+									else {
+										conditionCopy->setParam(CONDITION_PARAM_OWNER, caster->getID());
+									}
+								}
+
+								//TODO: infight condition until all aggressive conditions has ended
+								target->addCombatCondition(conditionCopy);
+							}
+						}
+					}
+					return;
+				}
+
+				if (casterPlayer) {
+					Player* targetPlayer = target ? target->getPlayer() : nullptr;
+					if (damage.value != 0 && targetPlayer && casterPlayer != targetPlayer && damage.type != COMBAT_HEALING) {
+						damage.value /= 2;
+					}
+
+					if (!damage.critical && damage.type != COMBAT_HEALING && damage.origin != ORIGIN_CONDITION) {
+						uint16_t chance = casterPlayer->getSpecialSkill(SPECIALSKILL_CRITICALHITCHANCE);
+						uint16_t skill = casterPlayer->getSpecialSkill(SPECIALSKILL_CRITICALHITAMOUNT);
+						if (chance > 0 && skill > 0 && random(1, 100) <= chance) {
+							damage.value += std::round(damage.value * (skill / 100.));
+							damage.critical = true;
 						}
 					}
 				}
-				return;
+
+				success = g_game.combatChangeHealth(caster, target, damage);
 			}
-
-			if (casterPlayer) {
-				Player* targetPlayer = target ? target->getPlayer() : nullptr;
-				if (damage.value != 0 && targetPlayer && casterPlayer != targetPlayer && damage.type != COMBAT_HEALING) {
-					damage.value /= 2;
-				}
-
-				if (!damage.critical && damage.type != COMBAT_HEALING && damage.origin != ORIGIN_CONDITION) {
-					uint16_t chance = casterPlayer->getSpecialSkill(SPECIALSKILL_CRITICALHITCHANCE);
-					uint16_t skill = casterPlayer->getSpecialSkill(SPECIALSKILL_CRITICALHITAMOUNT);
-					if (chance > 0 && skill > 0 && random(1, 100) <= chance) {
-						damage.value += std::round(damage.value * (skill / 100.));
-						damage.critical = true;
-					}
-				}
+			else {
+				success = g_game.combatChangeMana(caster, target, damage);
 			}
-
-			success = g_game.combatChangeHealth(caster, target, damage);
-		} else {
-			success = g_game.combatChangeMana(caster, target, damage);
 		}
-	} else {
+	}
+	else {
 		// no damage spell
 		caster->onAttackedCreature(target, true);
 	}
@@ -892,7 +933,8 @@ void Combat::doTargetCombat(Creature* caster, Creature* target, CombatDamage& da
 					if (caster) {
 						if (Player* player = caster->getPlayer()) {
 							conditionCopy->setParam(CONDITION_PARAM_OWNERGUID, player->getGUID());
-						} else {
+						}
+						else {
 							conditionCopy->setParam(CONDITION_PARAM_OWNER, caster->getID());
 						}
 					}
@@ -933,7 +975,8 @@ void Combat::doTargetCombat(Creature* caster, Creature* target, CombatDamage& da
 
 		if (params.dispelType == CONDITION_PARALYZE) {
 			target->removeCondition(CONDITION_PARALYZE);
-		} else {
+		}
+		else {
 			target->removeCombatCondition(params.dispelType);
 		}
 	}
@@ -942,6 +985,7 @@ void Combat::doTargetCombat(Creature* caster, Creature* target, CombatDamage& da
 		params.targetCallback->onTargetCombat(caster, target);
 	}
 }
+
 
 void Combat::doAreaCombat(Creature* caster, const Position& position, const AreaCombat* area, CombatDamage& damage, const CombatParams& params, bool angleSpell)
 {
