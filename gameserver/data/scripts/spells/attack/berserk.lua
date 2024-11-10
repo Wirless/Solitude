@@ -18,7 +18,7 @@ function spell.onCastSpell(creature, variant)
 	return combat:execute(creature, variant)
 end
 
-spell:manaPercent(80)
+spell:mana(150)
 spell:level(35)
 spell:isAggressive(true)
 spell:isPremium(true)
