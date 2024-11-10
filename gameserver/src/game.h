@@ -420,6 +420,8 @@ class Game
 		GameState_t getGameState() const;
 		void setGameState(GameState_t newState);
 		void saveGameState();
+		void updateCreatureWalkthrough(const Creature* creature);
+
 
 		//Events
 		void processConditions();

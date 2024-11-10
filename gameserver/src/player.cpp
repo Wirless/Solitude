@@ -922,6 +922,7 @@ void Player::onRemoveTileItem(const Tile* tile, const Position& pos, const ItemT
 	}
 }
 
+
 void Player::onCreatureAppear(Creature* creature, bool isLogin)
 {
 	Creature::onCreatureAppear(creature, isLogin);
@@ -1008,6 +1009,7 @@ void Player::onChangeZone(ZoneType_t zone)
 		}
 	}
 
+	g_game.updateCreatureWalkthrough(this);
 	sendIcons();
 }
 
@@ -1113,6 +1115,12 @@ void Player::onCreatureMove(Creature* creature, const Tile* newTile, const Posit
 
 	if (creature != this) {
 		return;
+	}
+	// 
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+				// Check if the game world is not PvP
+				// Send update to the master about being able to walk through this 
+				g_game.updateCreatureWalkthrough(this);
 	}
 
 	if (tradeState != TRADE_TRANSFER) {
@@ -3903,4 +3911,71 @@ void Player::updateRegeneration()
 		condition->setParam(CONDITION_PARAM_MANAGAIN, vocation->getManaGainAmount());
 		condition->setParam(CONDITION_PARAM_MANATICKS, vocation->getManaGainTicks() * 1000);
 	}
+}
+
+
+bool Player::canWalkthrough(const Creature* creature) const
+{
+	// Allow all players to walk through other players
+	if (group->access || creature->isInGhostMode() || creature->getPlayer()) {
+		return true;
+	}
+
+	// Check if the creature is a summon and if its master is a player
+	if (creature->isSummon()) {
+		const Creature* master = creature->getMaster();
+		if (master && master->getPlayer()) {
+			return true;
+		}
+	}
+
+
+	// Proceed with existing checks for non-player creatures
+	const Player* player = creature->getPlayer();
+	if (!player) {
+		return false;
+	}
+
+	const Tile* playerTile = player->getTile();
+	if (!playerTile || (!playerTile->hasFlag(TILESTATE_PROTECTIONZONE) && player->getLevel() > static_cast<uint32_t>(g_config.getNumber(ConfigManager::PROTECTION_LEVEL)))) {
+		return false;
+	}
+
+	Player* thisPlayer = const_cast<Player*>(this);
+	if ((OTSYS_TIME() - lastWalkthroughAttempt) > 2000) {
+		thisPlayer->setLastWalkthroughAttempt(OTSYS_TIME());
+		return false;
+	}
+
+	if (creature->getPosition() != lastWalkthroughPosition) {
+		thisPlayer->setLastWalkthroughPosition(creature->getPosition());
+		return false;
+	}
+
+	thisPlayer->setLastWalkthroughPosition(creature->getPosition());
+	return true;
+}
+
+bool Player::canWalkthroughEx(const Creature* creature) const
+{
+	// Allow all players to walk through other players
+	if (group->access || creature->getPlayer()) {
+		return true;
+	}
+
+	// Check if the creature is a summon and if its master is a player
+	if (creature->isSummon()) {
+		const Creature* master = creature->getMaster();
+		if (master && master->getPlayer()) {
+			return true;
+		}
+	}
+
+	const Player* player = creature->getPlayer();
+	if (!player) {
+		return false;
+	}
+
+	const Tile* playerTile = player->getTile();
+	return playerTile && (playerTile->hasFlag(TILESTATE_PROTECTIONZONE) || player->getLevel() <= static_cast<uint32_t>(g_config.getNumber(ConfigManager::PROTECTION_LEVEL)));
 }

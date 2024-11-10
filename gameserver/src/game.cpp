@@ -5439,3 +5439,14 @@ void Game::clearTileFromSave(const Tile* tile)
 		tilesToSave.erase(it);
 	}
 }
+
+void Game::updateCreatureWalkthrough(const Creature* creature)
+{
+	//send to clients
+	SpectatorVec spectators;
+	map.getSpectators(spectators, creature->getPosition(), true, true);
+	for (Creature* spectator : spectators) {
+		Player* tmpPlayer = spectator->getPlayer();
+		tmpPlayer->sendCreatureWalkthrough(creature, tmpPlayer->canWalkthroughEx(creature));
+	}
+}

@@ -484,7 +484,6 @@ ReturnValue Tile::queryAdd(int32_t, const Thing& thing, uint32_t, uint32_t flags
 						// Walk through ghosted players
 						continue;
 					} 
-
 					if (!ignoreBlockCreature && tileCreature->getPlayer()) {
 						// Do not walk through non-ghosted players
 						return RETURNVALUE_NOTPOSSIBLE;
@@ -543,10 +542,46 @@ ReturnValue Tile::queryAdd(int32_t, const Thing& thing, uint32_t, uint32_t flags
 
 		const CreatureVector* creatures = getCreatures();
 		if (const Player* player = creature->getPlayer()) {
-			if (creatures && !creatures->empty() && !hasBitSet(FLAG_IGNOREBLOCKCREATURE, flags) && !player->isAccessPlayer()) {
-				for (const Creature* tileCreature : *creatures) {
-					if (!tileCreature->isInGhostMode()) {
-						return RETURNVALUE_NOTPOSSIBLE;
+
+			if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+				if (creatures && !creatures->empty() && !hasBitSet(FLAG_IGNOREBLOCKCREATURE, flags) && !player->isAccessPlayer()) {
+					for (const Creature* tileCreature : *creatures) {
+
+						if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+							// Skip the check if the tile creature is also a player or a monster with a master
+							if (tileCreature->getPlayer()) {
+								if (getGround() && (getGround()->getID() == 425 || getGround()->getID() == 447)) {
+									return RETURNVALUE_NOTPOSSIBLE; // Prevent another player from standing on this tile
+								}
+								continue; // Skip check for players already standing on the tile
+							}
+
+							if (tileCreature->getMonster()) {
+								// Check if the monster has a master before accessing it
+								const Monster* monster = tileCreature->getMonster();
+								if (monster->getMaster() && monster->getMaster()->getPlayer()) {
+									// The monster has a master who is a player, so continue
+									continue;
+								}
+							}
+						}
+
+						// If we reach here, the tile creature is not a player or a monster with a master
+						// Check if the tile creature is not in ghost mode and block the path if necessary
+						if (!tileCreature->isInGhostMode()) {
+							return RETURNVALUE_NOTPOSSIBLE;
+						}
+					}
+				}
+			}
+
+
+			if (g_game.getWorldType() != WORLD_TYPE_NO_PVP) {
+				if (creatures && !creatures->empty() && !hasBitSet(FLAG_IGNOREBLOCKCREATURE, flags) && !player->isAccessPlayer()) {
+					for (const Creature* tileCreature : *creatures) {
+						if (!tileCreature->isInGhostMode()) {
+							return RETURNVALUE_NOTPOSSIBLE;
+						}
 					}
 				}
 			}

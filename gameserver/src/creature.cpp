@@ -140,6 +140,10 @@ void Creature::onCreatureAppear(Creature* creature, bool isLogin)
 			setLastPosition(getPosition());
 		}
 	}
+
+	//does not work here
+
+
 }
 
 void Creature::onRemoveCreature(Creature* creature, bool)
@@ -193,6 +197,22 @@ void Creature::onCreatureMove(Creature* creature, const Tile* newTile, const Pos
 
 		if (diagonalStep) {
 			waypoints *= 3;
+		}
+		//prompt should continue here check if the creature has a master and if that master is player if that is true then  send updatecreaturewalkthrough information for client
+		// Check if the creature has a master and if the master is a player
+
+		// Check if the creature has a master and if the master is a player
+		if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+			if (this->getMaster()) {
+				Player* master = this->getMaster()->getPlayer();
+				if (master) {
+					// Check if the game world is not PvP
+				
+						// Send update to the master about the creature's movement
+						g_game.updateCreatureWalkthrough(this);
+				
+				}
+			}
 		}
 
 		const int32_t speed = getSpeed();

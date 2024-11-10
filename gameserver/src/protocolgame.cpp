@@ -1139,6 +1139,22 @@ void ProtocolGame::sendCreatureLight(const Creature* creature)
 	NetworkMessage msg;
 	AddCreatureLight(msg, creature);
 	writeToOutputBuffer(msg);
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+		if (creature->getPlayer()) {
+			// If the creature is a player, notify the spectator (player) about the walk-through
+			g_game.updateCreatureWalkthrough(creature);
+		}
+		else {
+			// If the creature is a monster, check if it has a master who is a player
+			if (creature->getMaster()) {
+				Player* master = creature->getMaster()->getPlayer();
+				if (master) {
+					// Notify the master about the creature's movement (walk-through)
+					g_game.updateCreatureWalkthrough(creature);
+				}
+			}
+		}
+	}
 }
 
 void ProtocolGame::sendWorldLight(LightInfo lightInfo)
@@ -2270,4 +2286,17 @@ void ProtocolGame::parseExtendedOpcode(NetworkMessage& msg)
 
 	// process additional opcodes via lua script event
 	g_game.parsePlayerExtendedOpcode(player->getID(), opcode, buffer);
+}
+
+void ProtocolGame::sendCreatureWalkthrough(const Creature* creature, bool walkthrough)
+{
+	if (!canSee(creature)) {
+		return;
+	}
+
+	NetworkMessage msg;
+	msg.addByte(0x92);
+	msg.add<uint32_t>(creature->getID());
+	msg.addByte(walkthrough ? 0x00 : 0x01);
+	writeToOutputBuffer(msg);
 }

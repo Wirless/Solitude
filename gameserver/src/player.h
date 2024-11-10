@@ -182,6 +182,14 @@ class Player final : public Creature, public Cylinder
 			guildNick = nick;
 		}
 
+
+		void setLastWalkthroughAttempt(int64_t walkthroughAttempt) {
+			lastWalkthroughAttempt = walkthroughAttempt;
+		}
+		void setLastWalkthroughPosition(Position walkthroughPosition) {
+			lastWalkthroughPosition = walkthroughPosition;
+		}
+
 		bool isInWar(const Player* player) const;
 		bool isInWarList(uint32_t guildId) const;
 
@@ -424,7 +432,8 @@ class Player final : public Creature, public Cylinder
 		bool isNearDepotBox(int32_t depotId = -1) const;
 
 		bool canSeeCreature(const Creature* creature) const override;
-
+		bool canWalkthrough(const Creature* creature) const;
+		bool canWalkthroughEx(const Creature* creature) const;
 		RaceType_t getRace() const override {
 			return RACE_BLOOD;
 		}
@@ -697,6 +706,14 @@ class Player final : public Creature, public Cylinder
 				client->sendCreatureLight(creature);
 			}
 		}
+
+		void sendCreatureWalkthrough(const Creature* creature, bool walkthrough) {
+			if (client) {
+				client->sendCreatureWalkthrough(creature, walkthrough);
+			}
+		}
+
+
 		void sendCreatureShield(const Creature* creature) {
 			if (client) {
 				client->sendCreatureShield(creature);
@@ -1008,6 +1025,7 @@ class Player final : public Creature, public Cylinder
 
 		Skill skills[SKILL_LAST + 1];
 		Position loginPosition;
+		Position lastWalkthroughPosition;
 
 		time_t lastLoginSaved = 0;
 		time_t lastLogout = 0;
@@ -1024,6 +1042,7 @@ class Player final : public Creature, public Cylinder
 		int64_t formerPartyTime = 0;
 		int64_t lastPing;
 		int64_t lastPong;
+		int64_t lastWalkthroughAttempt = 0;
 
 		Guild* guild = nullptr;
 		GuildRank_ptr guildRank = nullptr;
