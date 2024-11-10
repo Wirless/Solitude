@@ -36,7 +36,7 @@ shopModule:addBuyableItem({'magic lightwand'}, 2162, 400, 'magic lightwand')
 shopModule:addBuyableItem({'spellbook'}, 2175, 150, 'spellbook')
 shopModule:addBuyableItem({'magic lightwand'}, 2163, 400, 'magic lightwand')
 
-shopModule:addBuyableItem({'mana fluid', 'manafluid'}, 2006, 50, 7, 'mana fluid')
+shopModule:addBuyableItem({'mana fluid', 'manafluid'}, 2006, 50, 10, 'mana fluid')
 shopModule:addBuyableItem({'life fluid', 'lifefluid'}, 2006, 50, 2, 'life fluid')
 
 shopModule:addBuyableItem({'animate dead'}, 2316, 375, 1, 'animate dead rune')
