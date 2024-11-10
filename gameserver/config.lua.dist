@@ -1,0 +1,221 @@
+---------------------------------------------
+-- THE VIOLET PROJECT - CONFIGURATION FILE --
+---------------------------------------------
+
+-------------------------
+-- Connection Settings --
+-------------------------
+-- maxPlayers: set to 0 for no limit
+ip = "127.0.0.1"
+bindOnlyGlobalAddress = false
+loginProtocolPort = 7171
+gameProtocolPort = 7172
+statusProtocolPort = 7171
+maxPlayers = 0
+motd = "The Violet Project!\n\nVersion 2.0"
+onePlayerOnlinePerAccount = true
+allowClones = false
+serverName = "Violet"
+statusTimeout = 5000
+replaceKickOnLogin = true
+maxPacketsPerSecond = 100
+
+-----------------------------
+-- MySql Database Settings --
+-----------------------------
+mysqlHost = "127.0.0.1"
+mysqlUser = "root"
+mysqlPass = "tibia"
+mysqlDatabase = "tibia"
+mysqlPort = 3306
+mysqlSock = ""
+
+---------------------
+-- Logger Settings --
+---------------------
+-- options: error, info, warning, debug, chat
+loggerFlags = "error,info,warning,chat"
+
+------------------------------
+-- Protocol Status Settings --
+------------------------------
+ownerName = "Alejandro Mujica"
+ownerEmail = "alejandromujica.rsm@gmail.com"
+url = "https://otland.net/members/ezzz.79044/"
+location = "Venezuela"
+
+-------------------------------------
+-- Process Priority (Windows only) --
+-------------------------------------
+-- defaultPriority: "normal", "above-normal", "high"
+defaultPriority = "high"
+startupDatabaseOptimization = false
+
+------------------
+-- Map Settings --
+------------------
+mapName = "map"
+mapAuthor = "Ezzz & CipSoft"
+
+--------------------------
+-- Map Refresh Settings --
+--------------------------
+-- mapRefreshTileVisibilityInterval: players near such tiles do not refresh for the given interval
+enableMapRefresh = true
+mapRefreshInterval = 1 * 60 * 1000
+mapRefreshTilesPerCycle = 32 * 32
+mapRefreshTileVisibilityInterval = 60 * 60 * 1000
+
+--------------------------
+-- Server Save Settings --
+--------------------------
+enableMapDataFiles = true
+
+---------------------
+-- Combat Settings --
+---------------------
+-- worldType options: "pvp", "no-pvp" and "pvp-enforced".
+-- deathLosePercent: use -1 for modern Tibia formula. 10 for oldschool formulas.
+-- banDaysLength: total days to ban the player when exceeding killsToBan
+-- onlyOneFragPerKill: if true, either last hit or most damage gets the unjust, 
+-- 					   most damage only gets unjust if there is no valid last hit or it was a justified last hit
+worldType = "pvp"
+protectionLevel = 1
+banDaysLength = 30
+pzLocked = 60000
+onlyOneFragPerKill = false
+removeChargesFromRunes = true
+removeChargesFromPotions = true
+removeWeaponAmmunition = true
+removeWeaponCharges = true
+redSkullDuration = 30 * 24 * 60 * 60
+killsDayRedSkull = 3
+killsWeekRedSkull = 5
+killsMonthRedSkull = 10
+killsDayBanishment = 6
+killsWeekBanishment = 10
+killsMonthBanishment = 20
+whiteSkullTime = 15 * 60
+experienceByKillingPlayers = false
+pvpExpFormula = 10
+deathLosePercent = 10
+allowUnfairFightDeathReduction = false
+useClassicCombatFormulas = true
+
+--------------------
+-- House Settings --
+--------------------
+-- housePriceEachSQM: use -1 to disable the ingame buy house functionality
+-- houseRentPeriod options: "daily", "weekly", "monthly", "yearly", "none" to disable rents
+housePriceEachSQM = -1
+houseRentPeriod = "monthly"
+houseOwnedByAccount = false
+houseDoorShowPrice = false
+onlyInvitedCanMoveHouseItems = false
+onlyInvitedCanAddHouseItems = false
+housesBankSystem = false
+guildHallsOnlyForLeaders = true
+housesOnlyPremium = true
+
+-------------------
+-- Game Settings --
+-------------------
+-- defaultWorldLight: set to false to have a static world light
+-- enablePlayerDataFiles: saves player inventory and depot items to /gamedata/players/ folder instead of DB
+-- enablePlayerInventoryDatabase: makes it so if player data files is enabled, player inventory will be saved & loaded from database instead
+defaultWorldLight = true
+timeBetweenActions = 100
+timeBetweenExActions = 1000
+allowChangeOutfit = true
+freePremium = false
+kickIdlePlayerAfterMinutes = 15
+maxMessageBuffer = 4
+emoteSpells = false
+showScriptsLogInConsole = false
+yellMinimumLevel = 2
+yellAlwaysAllowPremium = false
+forceMonsterTypesOnLoad = false
+luaItemDesc = false
+staminaSystem = false
+showPlayerLogInConsole = true
+disabledMailboxes = "Rookgaard,Isle of Solitude"
+vipFreeLimit = 20
+vipPremiumLimit = 100
+depotFreeLimit = 1000
+depotPremiumLimit = 2000
+removeOnDespawn = true
+playerInventoryAutoStack = false
+showMonsterLootMessage = false
+monstersSpawnWithLoot = true
+classicPlayerLootDrop = true
+enablePlayerDataFiles = true
+enablePlayerInventoryDatabase = false
+tileItemLimit = 1000
+houseTileItemLimit = 100
+classicInventorySwap = true
+
+-- When looking at a house door with an item, shall it display house info or the item's ?
+houseDoorsDisplayHouseInfo = false
+
+-- Allow searching for a valid container inside inner containers of a player?
+-- This only applies for using an item from a distance
+deepPlayerContainerSearch = false 
+
+-- Allow sending parcels and letters with trash on top of mailboxes
+trashableMailbox = true
+
+-- Failed account login attempts to disable an account and ban IP-Address
+-- Use 0 to disable.
+failedLoginAttemptsAccountLock = 10
+failedLoginAttemptsIPBan = 15
+
+accountLockDuration = 5 * 60 * 1000
+ipLockDuration = 30 * 60 * 1000
+
+ipLockMessage = "IP address blocked for 30 minutes. Please wait."
+accountLockMessage = "Account disabled for five minutes. Please wait."
+
+-- If the OTBM map has been updated, upon login, player will be sent to the temple.
+uponMapUpdateSendPlayersToTemple = true
+
+-- Allow items to permanently decay inside player depots without the need of the player being next to the depot?
+-- False: items only decay if the player can access the depot
+-- True: the items decay at all times even if the player is not around
+itemsDecayInsideDepots = false
+
+--------------------
+-- Rooking System --
+--------------------
+allowPlayerRooking = true
+rookingLevel = 5
+rookTownName = "Rookgaard"
+
+-------------------
+-- Rate Settings --
+-------------------
+-- rateSpawn: increases respawn time by the given percentage, 50 = 50% faster respawn time
+rateExp = 1
+rateSkill = 1
+rateLoot = 1
+rateMagic = 1
+rateSpawn = 0
+
+-----------------
+-- LUA Scripts --
+-----------------
+warnUnsafeScripts = true
+convertUnsafeScripts = true
+
+-------------------------------
+-- Test Environment Settings --
+-------------------------------
+-- Set to true to enable the default behavior of Tibia of learning spells
+-- This makes it so all spells are learned by default
+needLearnSpells = true
+-- Disables all spell requirements for all players
+noSpellRequirements = false
+-- Disable players losing HP or MP
+unlimitedPlayerHP = false
+unlimitedPlayerMP = false
+-- Disable monster spawns
+disableMonsterSpawns = false
