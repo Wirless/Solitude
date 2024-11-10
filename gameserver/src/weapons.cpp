@@ -150,7 +150,7 @@ int32_t Weapons::getMaxWeaponDamage(uint32_t level, int32_t attackSkill, int32_t
 		}
 
 		//int32_t formula = (5 * (attackSkill) + 50) * maxWeaponDamage;
-		int32_t formula = (5 * attackSkill + 50 + (level / 2)) * maxWeaponDamage;
+		int32_t formula = (5 * attackSkill + 50 + (level / 4)) * maxWeaponDamage;
 		int32_t rnd = rand() % 100;
 		maxWeaponDamage = formula * ((rand() % 100 + rnd) / 2) / 10000;
 		return maxWeaponDamage;
@@ -357,7 +357,12 @@ bool Weapon::useFist(Player* player, Creature* target)
 
 	float attackFactor = player->getAttackFactor();
 	int32_t attackSkill = player->getSkillLevel(SKILL_FIST);
+	int32_t mylevel = player->getLevel();
+	
 	int32_t attackValue = 7;
+	if (mylevel >= 35) {
+		int32_t attackValue = mylevel / 5;
+	}
 
 	int32_t maxDamage = Weapons::getMaxWeaponDamage(player->getLevel(), attackSkill, attackValue, attackFactor);
 

@@ -1611,7 +1611,7 @@
 	<tvpspawn centerx="32781" centery="32228" centerz="7" monstername="Wolf" spawntime="650" amount="3" radius="30" />
 	<tvpspawn centerx="32789" centery="32228" centerz="7" monstername="Minotaur" spawntime="450" amount="5" radius="30" />
 	<tvpspawn centerx="32795" centery="32228" centerz="7" monstername="Cyclops" spawntime="500" amount="3" radius="30" />
-	<tvpspawn centerx="32391" centery="32229" centerz="7" npcname="Donald McRonald" spawntime="60" amount="1" direction="2" radius="2" />
+	<tvpspawn centerx="32391" centery="32229" centerz="7" npcname="Donald Mcronald" spawntime="60" amount="1" direction="2" radius="2" />
 	<tvpspawn centerx="32108" centery="32230" centerz="7" monstername="Rabbit" spawntime="600" amount="2" radius="10" />
 	<tvpspawn centerx="32400" centery="32231" centerz="7" monstername="Pig" spawntime="1000" amount="3" radius="4" />
 	<tvpspawn centerx="32614" centery="32231" centerz="7" monstername="Snake" spawntime="650" amount="1" radius="30" />
@@ -1636,7 +1636,7 @@
 	<tvpspawn centerx="32001" centery="32240" centerz="7" monstername="Snake" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="32776" centery="32240" centerz="7" monstername="Cyclops" spawntime="600" amount="2" radius="30" />
 	<tvpspawn centerx="32072" centery="32241" centerz="7" monstername="Rabbit" spawntime="400" amount="2" radius="3" />
-	<tvpspawn centerx="32390" centery="32241" centerz="7" npcname="Sherry McRonald" spawntime="60" amount="1" direction="2" radius="2" />
+	<tvpspawn centerx="32390" centery="32241" centerz="7" npcname="Sherry Mcronald" spawntime="60" amount="1" direction="2" radius="2" />
 	<tvpspawn centerx="32740" centery="32241" centerz="7" monstername="Deer" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="32463" centery="32242" centerz="7" monstername="Wolf" spawntime="900" amount="3" radius="30" />
 	<tvpspawn centerx="32789" centery="32242" centerz="7" monstername="Scorpion" spawntime="1000" amount="2" radius="30" />
@@ -1886,7 +1886,7 @@
 	<tvpspawn centerx="33046" centery="32461" centerz="7" monstername="Hyaena" spawntime="600" amount="2" radius="30" />
 	<tvpspawn centerx="33008" centery="32463" centerz="7" monstername="Demon Skeleton" spawntime="600" amount="2" radius="30" />
 	<tvpspawn centerx="33017" centery="32463" centerz="7" monstername="Ghoul" spawntime="600" amount="3" radius="30" />
-	<tvpspawn centerx="32186" centery="32468" centerz="7" npcname="Simon the Beggar" spawntime="60" amount="1" direction="2" radius="2" />
+	<tvpspawn centerx="32186" centery="32468" centerz="7" npcname="Simon The Beggar" spawntime="60" amount="1" direction="2" radius="2" />
 	<tvpspawn centerx="33054" centery="32470" centerz="7" monstername="Skeleton" spawntime="600" amount="2" radius="30" />
 	<tvpspawn centerx="33042" centery="32471" centerz="7" monstername="Skeleton" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="33049" centery="32475" centerz="7" monstername="Snake" spawntime="600" amount="4" radius="30" />
