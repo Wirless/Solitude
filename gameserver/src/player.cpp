@@ -927,6 +927,11 @@ void Player::onCreatureAppear(Creature* creature, bool isLogin)
 {
 	Creature::onCreatureAppear(creature, isLogin);
 
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+		// Notify the client about the ability to walk through this player
+		g_game.updateCreatureWalkthrough(this);
+	}
+
 	if (isLogin && creature == this) {
 		for (int32_t slot = CONST_SLOT_FIRST; slot <= CONST_SLOT_LAST; ++slot) {
 			Item* item = inventory[slot];
@@ -1009,7 +1014,11 @@ void Player::onChangeZone(ZoneType_t zone)
 		}
 	}
 
-	g_game.updateCreatureWalkthrough(this);
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+		// Check if the game world is not PvP
+		// Send update to the master about being able to walk through this 
+		g_game.updateCreatureWalkthrough(this);
+	}
 	sendIcons();
 }
 

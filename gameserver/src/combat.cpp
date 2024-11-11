@@ -834,8 +834,20 @@ void Combat::doTargetCombat(Creature* caster, Creature* target, CombatDamage& da
 
 	Player* casterPlayer = caster ? caster->getPlayer() : nullptr;
 
+
 	if (params.noDamage) {
 		damage.value = 0;
+	}
+
+
+	// Check if world is non-PVP and if healing is involved
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP && damage.type == COMBAT_HEALING) {
+		if (casterPlayer) {  // If the caster is a player
+			if (target && (!target->getMaster() || !target->getMaster()->getPlayer())) {
+				// Prevent player healing on wild monsters or their summons
+				return;
+			}
+		}
 	}
 
 	bool success = params.noDamage;
@@ -957,6 +969,9 @@ void Combat::doAreaCombat(Creature* caster, const Position& position, const Area
 	}
 
 	Player* casterPlayer = caster ? caster->getPlayer() : nullptr;
+
+
+
 	int32_t criticalPrimary = 0;
 	if (!damage.critical && damage.type != COMBAT_HEALING && casterPlayer && damage.origin != ORIGIN_CONDITION) {
 		uint16_t chance = casterPlayer->getSpecialSkill(SPECIALSKILL_CRITICALHITCHANCE);
@@ -1030,6 +1045,15 @@ void Combat::doAreaCombat(Creature* caster, const Position& position, const Area
 	leechCombat.leeched = true;
 
 	for (Creature* creature : toDamageCreatures) {
+
+		if (g_game.getWorldType() == WORLD_TYPE_NO_PVP && damage.type == COMBAT_HEALING && casterPlayer) {
+			// Skip non-player targets in a no-PvP world when the spell is healing-based to prevent griefing.
+			if (creature && (!creature->getMaster() || !creature->getMaster()->getPlayer())) {
+				continue;
+			}
+		}
+
+
 		if (!params.forceOnTargetEvent) {
 			CombatDamage damageCopy = damage; // we cannot avoid copying here, because we don't know if it's player combat or not, so we can't modify the initial damage.
 
