@@ -5450,3 +5450,5 @@ void Game::updateCreatureWalkthrough(const Creature* creature)
 		tmpPlayer->sendCreatureWalkthrough(creature, tmpPlayer->canWalkthroughEx(creature));
 	}
 }
+
+

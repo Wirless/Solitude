@@ -926,12 +926,14 @@ void Player::onRemoveTileItem(const Tile* tile, const Position& pos, const ItemT
 void Player::onCreatureAppear(Creature* creature, bool isLogin)
 {
 	Creature::onCreatureAppear(creature, isLogin);
-
+	// ON LOGIN()
+	/*
 	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
 		// Notify the client about the ability to walk through this player
 		g_game.updateCreatureWalkthrough(this);
 	}
 
+	*/
 	if (isLogin && creature == this) {
 		for (int32_t slot = CONST_SLOT_FIRST; slot <= CONST_SLOT_LAST; ++slot) {
 			Item* item = inventory[slot];
@@ -1343,6 +1345,13 @@ void Player::onThink(uint32_t interval)
 			client->sendTextMessage(TextMessage(MESSAGE_STATUS_WARNING, fmt::format("You have been idle for {:d} minutes. You will be disconnected in one minute if you are still idle then.", kickAfterMinutes)));
 		}
 	}
+	//This could be network expensive or CPU intensive with loads of players
+	/*
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+		// Notify the client about the ability to walk through this player
+		g_game.updateCreatureWalkthrough(this);
+	}
+	*/
 
 	if (g_game.getWorldType() != WORLD_TYPE_PVP_ENFORCED) {
 		checkSkullTicks();
