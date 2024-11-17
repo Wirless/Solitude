@@ -1579,6 +1579,11 @@ void Player::addExperience(Creature* source, uint64_t exp)
 	} else {
 		levelPercent = 0;
 	}
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+		// Check if the game world is not PvP
+		// Send update to the master about being able to walk through this 
+		g_game.updateCreatureWalkthrough(this);
+	}
 	sendStats();
 }
 
@@ -1633,7 +1638,11 @@ void Player::removeExperience(uint64_t exp, bool sendText/* = false*/)
 	} else {
 		levelPercent = 0;
 	}
-
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+		// Check if the game world is not PvP
+		// Send update to the master about being able to walk through this 
+		g_game.updateCreatureWalkthrough(this);
+	}
 	sendStats();
 }
 

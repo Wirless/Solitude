@@ -4,7 +4,7 @@
 #pragma once
 
 static constexpr auto STATUS_SERVER_NAME = "The Non-Violent Project";
-static constexpr auto STATUS_SERVER_VERSION = "3.2 Final";
+static constexpr auto STATUS_SERVER_VERSION = "Codename Solitude";
 static constexpr auto STATUS_SERVER_DEVELOPERS = "Idler";
 
 static constexpr auto CLIENT_VERSION_MIN = 772;

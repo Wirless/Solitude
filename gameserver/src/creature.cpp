@@ -86,6 +86,14 @@ void Creature::onThink(uint32_t interval)
 		onCreatureDisappear(attackedCreature, false);
 	}
 
+	//ARE WE LAGGING YET?
+	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP) {
+		// Check if the game world is not PvP
+		// Send update to the master about being able to walk through this 
+		g_game.updateCreatureWalkthrough(this);
+	}
+
+
 	blockTicks += interval;
 	if (blockTicks >= 1000) {
 		blockCount = std::min<uint32_t>(blockCount + 1, 2);

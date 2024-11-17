@@ -24,9 +24,24 @@ function rune.onCastSpell(creature, variant)
 		if items then
 			for i, item in ipairs(items) do
 				if item:getType():isMovable() and item:getUniqueId() > 65535 and item:getActionId() == 0 and not table.contains(corpseIds, item:getId()) then
-					item:remove()
+					
+					-- If the item is a loot bag (ID 1987), check if it has the caster's name in the description
+					if item:getId() == 1987 then
+						local description = item:getDescription():lower()
+						local casterName = creature:getName():lower()
+						
+						-- Only remove if the description contains the caster's name
+						if string.find(description, casterName) then
+							item:remove()
+						end
+					else
+						-- Remove other eligible items
+						item:remove()
+					end
 				end
 
+				
+			
 				if i == 500 then
 					break
 				end

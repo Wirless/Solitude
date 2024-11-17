@@ -843,12 +843,14 @@ void Combat::doTargetCombat(Creature* caster, Creature* target, CombatDamage& da
 	// Check if world is non-PVP and if healing is involved
 	if (g_game.getWorldType() == WORLD_TYPE_NO_PVP && damage.type == COMBAT_HEALING) {
 		if (casterPlayer) {  // If the caster is a player
-			if (target && (!target->getMaster() || !target->getMaster()->getPlayer())) {
-				// Prevent player healing on wild monsters or their summons
+			Player* targetPlayer = target ? target->getPlayer() : nullptr;
+			if (!targetPlayer && target && (!target->getMaster() || !target->getMaster()->getPlayer())) {
+				// Prevent player healing only on wild monsters without masters
 				return;
 			}
 		}
 	}
+
 
 	bool success = params.noDamage;
 	if (!success) {
@@ -1046,12 +1048,15 @@ void Combat::doAreaCombat(Creature* caster, const Position& position, const Area
 
 	for (Creature* creature : toDamageCreatures) {
 
+		// Skip non-player targets in a no-PvP world when the spell is healing-based to prevent griefing.
 		if (g_game.getWorldType() == WORLD_TYPE_NO_PVP && damage.type == COMBAT_HEALING && casterPlayer) {
-			// Skip non-player targets in a no-PvP world when the spell is healing-based to prevent griefing.
-			if (creature && (!creature->getMaster() || !creature->getMaster()->getPlayer())) {
+			Player* targetPlayer = creature->getPlayer();
+			if (!targetPlayer && (!creature->getMaster() || !creature->getMaster()->getPlayer())) {
+				// Prevent healing on wild monsters without masters
 				continue;
 			}
 		}
+
 
 
 		if (!params.forceOnTargetEvent) {

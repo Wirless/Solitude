@@ -52,6 +52,103 @@ function Player:onMoveItem(item, count, fromPosition, toPosition, fromCylinder, 
 		item:transform(2042)
 	end
 	
+	
+	
+	
+	if item:getId() == 1987 then
+		-- Get item description
+		local description = item:getDescription():lower()  -- Convert to lowercase for consistency
+		local playerName = self:getName():lower()  -- Get player's name in lowercase
+		
+		-- Pattern to match "It weighs X.XX oz." followed by either nothing or additional text
+		local weightPattern = "it weighs %d+%.%d%d oz%."
+
+		-- Check if description matches the weight pattern
+		if string.find(description, weightPattern) then
+			local postWeightText = description:match(weightPattern .. "(.*)"):gsub("^%s*(.-)%s*$", "%1")  -- Trim whitespace
+
+			-- If there's no text after "oz.", allow anyone to move it
+			if postWeightText == "" then
+				return true
+			elseif postWeightText == playerName then
+				-- If there is text after "oz." and it matches the player's name, allow the move
+				
+			
+			-- Define restricted item types (assuming these are predefined constants in your system)
+local restrictedItemTypes = {
+    ITEM_TYPE_DEPOT,
+    ITEM_TYPE_MAILBOX,
+    ITEM_TYPE_TRASHHOLDER,
+    ITEM_TYPE_CONTAINER,
+    ITEM_TYPE_DOOR
+}
+
+-- Check if there are movable items on the target tile
+local targetTile = Tile(toPosition)
+if targetTile then
+    for _, tileItem in ipairs(targetTile:getItems()) do
+        local itemType = ItemType(tileItem:getId())
+        
+        -- Check if the item is movable
+        if itemType:isMovable() then
+            -- If there's a movable item on the target tile, prevent placing the item
+            self:sendTextMessage(MESSAGE_STATUS_WARNING, "You cannot place this item on top of other items.")
+            return RETURNVALUE_NOTMOVEABLE
+        end
+        
+        -- Check if the item on the tile is one of the restricted types
+        local itemTypeID = itemType:getType() -- Get the type of the current item
+        
+        -- Compare the itemTypeID with the restricted item types
+        for _, restrictedItemType in ipairs(restrictedItemTypes) do
+            if itemTypeID == restrictedItemType then
+                -- If the item type matches a restricted type, prevent placement
+                self:sendTextMessage(MESSAGE_STATUS_WARNING, "You cannot place this item on top of a " .. itemType:getName() .. ".")
+                return RETURNVALUE_NOTMOVEABLE
+            end
+        end
+    end
+end
+				return true
+			else
+				-- Text after "oz." does not match the player's name, prevent moving the item
+				self:sendTextMessage(MESSAGE_STATUS_WARNING, "This is not your lootbag.")
+
+				-- Get the tile where the bag is located
+				local tile = Tile(item:getPosition())
+				if tile then
+					-- Loop through all items on the tile
+					for _, tileItem in ipairs(tile:getItems()) do
+						if tileItem:getId() == 1987 then
+							-- Check if this bag belongs to the player
+							local tileItemDescription = tileItem:getDescription():lower()
+							local postTileItemWeightText = tileItemDescription:match(weightPattern .. "(.*)"):gsub("^%s*(.-)%s*$", "%1")
+
+							-- If the bag belongs to the player, move it and prevent other bags from moving
+							if postTileItemWeightText == playerName then
+								tileItem:moveTo(toPosition)  -- Move the player's own bag
+								return RETURNVALUE_NOTMOVEABLE  -- Prevent moving the other bag
+							end
+						elseif ItemType(tileItem:getId()):isMovable() then
+							-- Move any movable items found on the tile, provided their uniqueId and actionId are both less than 1000
+							tileItem:moveTo(toPosition)
+						end
+					end
+				end
+				
+				-- If no player-owned bag found, prevent moving the loot bag itself
+				return RETURNVALUE_NOTMOVEABLE
+			end
+		else
+			-- If the description does not match the weight format, prevent the move as a fallback
+			self:sendTextMessage(MESSAGE_STATUS_WARNING, "Item description format is incorrect.")
+			return RETURNVALUE_NOTMOVEABLE
+		end
+	end
+	
+
+
+	
 	if toCylinder:isTile() and toCylinder:getGround() and toCylinder:getGround():getActionId() == actionIds.blockingTile then
 		return RETURNVALUE_NOTENOUGHROOM
 	end
@@ -98,11 +195,40 @@ function Player:onTurn(direction)
 end
 
 function Player:onTradeRequest(target, item)
+	-- Check if the item is the specific loot bag with ID 1987
+	if item:getId() == 1987 then
+		-- Get the item description
+		local description = item:getDescription():lower()  -- Convert to lowercase for consistency
+
+		-- Pattern to match "It weighs X.XX oz." with optional text afterward
+		local weightPattern = "it weighs %d+%.%d%d oz%."
+
+		-- Check if description matches the weight pattern
+		if string.find(description, weightPattern) then
+			-- Extract any text after "oz."
+			local postWeightText = description:match(weightPattern .. "(.*)"):gsub("^%s*(.-)%s*$", "%1")  -- Trim whitespace
+
+			-- If there's any text after "oz.", it means the bag has an owner name, so deny the trade
+			if postWeightText ~= "" then
+				self:sendTextMessage(MESSAGE_STATUS_WARNING, "You cannot trade this lootbag as it has an owner.")
+				return false
+			end
+		else
+			-- If the description doesn't match the expected weight format, deny trade as a safeguard
+			self:sendTextMessage(MESSAGE_STATUS_WARNING, "This item cannot be traded.")
+			return false
+		end
+	end
+
+	-- Default behavior: if there’s an event callback, run it
 	if hasEventCallback(EVENT_CALLBACK_ONTRADEREQUEST) then
 		return EventCallback(EVENT_CALLBACK_ONTRADEREQUEST, self, target, item)
 	end
+
+	-- Allow trade if none of the conditions above prevented it
 	return true
 end
+
 
 function Player:onTradeAccept(target, item, targetItem)
 	if hasEventCallback(EVENT_CALLBACK_ONTRADEACCEPT) then
