@@ -1956,35 +1956,7 @@ void ProtocolGame::sendOutfitWindow()
 	msg.addByte(0xC8);
 
 	if (player->getOperatingSystem() >= CLIENTOS_OTCLIENT_LINUX) {
-		Outfit_t currentOutfit = player->getDefaultOutfit();
-		if (currentOutfit.lookType == 0) {
-			Outfit_t newOutfit;
-			newOutfit.lookType = outfits.front().lookType;
-			currentOutfit = newOutfit;
-		}
-
-		AddOutfit(msg, currentOutfit);
-
-		std::vector<ProtocolOutfit> protocolOutfits;
-		if (player->isAccessPlayer()) {
-			static const std::string gamemasterOutfitName = "Gamemaster";
-			protocolOutfits.emplace_back(gamemasterOutfitName, 75);
-		}
-
-		protocolOutfits.reserve(outfits.size());
-		for (const Outfit& outfit : outfits) {
-			protocolOutfits.emplace_back(outfit.name, outfit.lookType);
-			if (protocolOutfits.size() == std::numeric_limits<uint8_t>::max()) { // Game client currently doesn't allow more than 255 outfits
-				break;
-			}
-		}
-
-		msg.addByte(protocolOutfits.size());
-		for (const ProtocolOutfit& outfit : protocolOutfits) {
-			msg.add<uint16_t>(outfit.lookType);
-			msg.addString(outfit.name);
-		}
-	} else {
+		
 		Outfit_t currentOutfit = player->getDefaultOutfit();
 		AddOutfit(msg, currentOutfit);
 
