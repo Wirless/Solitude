@@ -16,6 +16,7 @@
 #include "guild.h"
 #include "groups.h"
 #include "town.h"
+#include <cstdint>
 
 #include <bitset>
 
@@ -491,7 +492,7 @@ class Player final : public Creature, public Cylinder
 		void doAttacking() override;
 
 		uint16_t getSpecialSkill(uint8_t skill) const {
-			return std::max<int32_t>(0, varSpecialSkills[skill]);
+			return std::max<int16_t>(0, varSpecialSkills[skill]);
 		}
 		uint16_t getSkillLevel(uint8_t skill) const {
 			return std::max<int32_t>(0, skills[skill].level + varSkills[skill]);
@@ -946,6 +947,9 @@ class Player final : public Creature, public Cylinder
 		void forgetInstantSpell(const std::string& spellName);
 		bool hasLearnedInstantSpell(const std::string& spellName) const;
 
+		void logExperienceGain(uint32_t playerId, uint64_t exp, uint32_t prevLevel, uint32_t newLevel);
+
+
 		void updateRegeneration();
 
 		void toggleInDepot() {
@@ -1076,7 +1080,7 @@ class Player final : public Creature, public Cylinder
 		uint32_t mana = 0;
 		uint32_t manaMax = 0;
 		int32_t varSkills[SKILL_LAST + 1] = {};
-		int32_t varSpecialSkills[SPECIALSKILL_LAST + 1] = {};
+		int16_t varSpecialSkills[SPECIALSKILL_LAST + 1] = {};
 		int32_t varStats[STAT_LAST + 1] = {};
 		int32_t purchaseCallback = -1;
 		int32_t saleCallback = -1;

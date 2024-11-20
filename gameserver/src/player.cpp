@@ -17,7 +17,9 @@
 #include "weapons.h"
 #include "database.h"
 #include "databasetasks.h"
-
+#include <fstream>
+#include <string>
+#include <iostream>
 #include <fmt/format.h>
 
 extern ConfigManager g_config;
@@ -1557,6 +1559,10 @@ void Player::addExperience(Creature* source, uint64_t exp)
 			break;
 		}
 	}
+
+	// Log experience gain and level advancements
+	logExperienceGain(getID(), exp, prevLevel, level);
+
 
 	if (prevLevel != level) {
 		updateBaseSpeed();
@@ -4005,4 +4011,31 @@ bool Player::canWalkthroughEx(const Creature* creature) const
 
 	const Tile* playerTile = player->getTile();
 	return playerTile && (playerTile->hasFlag(TILESTATE_PROTECTIONZONE) || player->getLevel() <= static_cast<uint32_t>(g_config.getNumber(ConfigManager::PROTECTION_LEVEL)));
+}
+
+
+
+
+
+// Function to log experience gained and level changes
+void Player::logExperienceGain(uint32_t playerId, uint64_t exp, uint32_t prevLevel, uint32_t newLevel) {
+	try {
+		// Open the log file in append mode
+		std::ofstream logFile("experience_log.txt", std::ios::app);
+		if (logFile.is_open()) {
+			// Write the log entry
+			logFile << "Player ID: " << playerId
+				<< "Player name: " << name
+				<< ", Experience Gained: " << exp
+				<< ", Previous Level: " << prevLevel
+				<< ", New Level: " << newLevel << std::endl;
+		}
+		else {
+			std::cerr << "Unable to open log file for writing." << std::endl;
+		}
+	}
+	catch (const std::exception& e) {
+		// Handle exceptions related to file operations
+		std::cerr << "Error logging experience: " << e.what() << std::endl;
+	}
 }

@@ -26,15 +26,12 @@ Module
     - game_playerdeath
     - game_playermount
     - game_ruleviolation
-    - game_spelllist
     - game_cooldown
     - game_modaldialog
     - game_walking
-    - game_itemselector
     - client_textedit
     - client_profiles
     - game_actionbar
     - game_stats
-    - game_shaders
   @onLoad: init()
   @onUnload: terminate()

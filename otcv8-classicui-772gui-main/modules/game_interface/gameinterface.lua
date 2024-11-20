@@ -478,6 +478,10 @@ function createThingMenu(menuPosition, lookThing, useThing, creatureThing)
       if creatureThing:isPartyMember() then
         menu:addOption(tr('Leave Party'), function() g_game.partyLeave() end)
       end
+	  
+	  if creatureThing:isPartyMember() then
+        menu:addOption(tr('Enable Shared'), function() g_game.talk("!share") end)
+      end
 
     else
       local localPosition = localPlayer:getPosition()
