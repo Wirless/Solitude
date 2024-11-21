@@ -1343,7 +1343,7 @@
 	<tvpspawn centerx="32759" centery="32068" centerz="7" monstername="Amazon" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="32481" centery="32070" centerz="7" monstername="Poison Spider" spawntime="800" amount="5" radius="30" />
 	<tvpspawn centerx="32377" centery="32071" centerz="7" monstername="Wolf" spawntime="600" amount="5" radius="30" />
-	<tvpspawn centerx="32456" centery="32071" centerz="7" monstername="Cyclops" spawntime="400" amount="8" radius="50" />
+	<tvpspawn centerx="32456" centery="32071" centerz="7" monstername="Cyclops" spawntime="400" amount="8" radius="30" />
 	<tvpspawn centerx="32792" centery="32071" centerz="7" monstername="Wolf" spawntime="650" amount="7" radius="30" />
 	<tvpspawn centerx="32852" centery="32071" centerz="7" monstername="Snake" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="32315" centery="32073" centerz="7" monstername="Bear" spawntime="600" amount="3" radius="30" />
@@ -3318,28 +3318,28 @@
 	<tvpspawn centerx="33066" centery="32025" centerz="8" monstername="Snake" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="32891" centery="32026" centerz="8" monstername="Bug" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="33044" centery="32028" centerz="8" monstername="Orc Spearman" spawntime="600" amount="2" radius="30" />
-	<tvpspawn centerx="32467" centery="32035" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
-	<tvpspawn centerx="32475" centery="32035" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32467" centery="32035" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
+	<tvpspawn centerx="32475" centery="32035" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="32450" centery="32038" centerz="8" npcname="Skjaar" spawntime="60" amount="1" direction="2" radius="2" />
 	<tvpspawn centerx="32810" centery="32038" centerz="8" monstername="Rat" spawntime="600" amount="4" radius="30" />
 	<tvpspawn centerx="32872" centery="32039" centerz="8" monstername="Cave Rat" spawntime="600" amount="2" radius="30" />
 	<tvpspawn centerx="32798" centery="32040" centerz="8" monstername="Rat" spawntime="600" amount="2" radius="30" />
-	<tvpspawn centerx="32463" centery="32041" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
-	<tvpspawn centerx="32417" centery="32043" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32463" centery="32041" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
+	<tvpspawn centerx="32417" centery="32043" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="33058" centery="32043" centerz="8" monstername="Snake" spawntime="600" amount="3" radius="30" />
 	<tvpspawn centerx="32434" centery="32045" centerz="8" monstername="Cyclops" spawntime="550" amount="4" radius="30" />
 	<tvpspawn centerx="32452" centery="32046" centerz="8" monstername="Ghoul" spawntime="800" amount="4" radius="30" />
 	<tvpspawn centerx="33056" centery="32046" centerz="8" monstername="Orc Spearman" spawntime="600" amount="1" radius="30" />
-	<tvpspawn centerx="32445" centery="32053" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32445" centery="32053" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="32470" centery="32054" centerz="8" monstername="Cyclops" spawntime="750" amount="2" radius="30" />
-	<tvpspawn centerx="32419" centery="32055" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32419" centery="32055" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="32486" centery="32059" centerz="8" monstername="Cyclops" spawntime="550" amount="3" radius="30" />
-	<tvpspawn centerx="32408" centery="32064" centerz="8" monstername="Cyclops" spawntime="500" amount="2" radius="50" />
+	<tvpspawn centerx="32408" centery="32064" centerz="8" monstername="Cyclops" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="33067" centery="32065" centerz="8" monstername="Beholder" spawntime="700" amount="1" radius="30" />
-	<tvpspawn centerx="32453" centery="32066" centerz="8" monstername="Cyclops" spawntime="500" amount="2" radius="50" />
+	<tvpspawn centerx="32453" centery="32066" centerz="8" monstername="Cyclops" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="32757" centery="32066" centerz="8" monstername="Amazon" spawntime="600" amount="2" radius="30" />
 	<tvpspawn centerx="32515" centery="32067" centerz="8" monstername="Demon Skeleton" spawntime="700" amount="2" radius="30" />
-	<tvpspawn centerx="32434" centery="32068" centerz="8" monstername="Cyclops" spawntime="500" amount="2" radius="50" />
+	<tvpspawn centerx="32434" centery="32068" centerz="8" monstername="Cyclops" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="32073" centery="32076" centerz="8" monstername="Troll" spawntime="600" amount="1" radius="30" />
 	<tvpspawn centerx="33008" centery="32078" centerz="8" monstername="Rotworm" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="32835" centery="32080" centerz="8" monstername="Rotworm" spawntime="500" amount="1" radius="30" />
@@ -3355,25 +3355,25 @@
 	<tvpspawn centerx="33048" centery="32091" centerz="8" monstername="Rotworm" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="33123" centery="32091" centerz="8" monstername="Rotworm" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="32367" centery="32093" centerz="8" monstername="Troll" spawntime="450" amount="5" radius="30" />
-	<tvpspawn centerx="32480" centery="32093" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
-	<tvpspawn centerx="32447" centery="32095" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32480" centery="32093" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
+	<tvpspawn centerx="32447" centery="32095" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="32803" centery="32095" centerz="8" monstername="Rotworm" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="33107" centery="32095" centerz="8" monstername="Rotworm" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="33114" centery="32095" centerz="8" monstername="Rotworm" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="33035" centery="32096" centerz="8" monstername="Rotworm" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="33095" centery="32096" centerz="8" monstername="Rotworm" spawntime="500" amount="3" radius="30" />
 	<tvpspawn centerx="32248" centery="32097" centerz="8" monstername="Rotworm" spawntime="600" amount="2" radius="30" />
-	<tvpspawn centerx="32438" centery="32097" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32438" centery="32097" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="33010" centery="32097" centerz="8" monstername="Rotworm" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="33130" centery="32097" centerz="8" monstername="Rotworm" spawntime="500" amount="3" radius="30" />
 	<tvpspawn centerx="32298" centery="32099" centerz="8" monstername="Orc" spawntime="600" amount="3" radius="30" />
-	<tvpspawn centerx="32469" centery="32099" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32469" centery="32099" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="32301" centery="32100" centerz="8" monstername="Orc Spearman" spawntime="600" amount="1" radius="30" />
 	<tvpspawn centerx="32378" centery="32100" centerz="8" monstername="Troll" spawntime="450" amount="5" radius="30" />
 	<tvpspawn centerx="32258" centery="32103" centerz="8" monstername="Rotworm" spawntime="500" amount="3" radius="30" />
 	<tvpspawn centerx="32358" centery="32104" centerz="8" monstername="Troll" spawntime="450" amount="5" radius="30" />
-	<tvpspawn centerx="32443" centery="32104" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
-	<tvpspawn centerx="32456" centery="32104" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="50" />
+	<tvpspawn centerx="32443" centery="32104" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
+	<tvpspawn centerx="32456" centery="32104" centerz="8" monstername="Cyclops" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="32250" centery="32105" centerz="8" monstername="Rotworm" spawntime="700" amount="2" radius="30" />
 	<tvpspawn centerx="32094" centery="32107" centerz="8" monstername="Spider" spawntime="600" amount="4" radius="30" />
 	<tvpspawn centerx="32168" centery="32107" centerz="8" monstername="Wolf" spawntime="600" amount="3" radius="30" />
@@ -4627,7 +4627,7 @@
 	<tvpspawn centerx="32931" centery="32071" centerz="9" npcname="Zebron" spawntime="60" amount="1" direction="2" radius="2" />
 	<tvpspawn centerx="32849" centery="32072" centerz="9" monstername="Rotworm" spawntime="500" amount="1" radius="30" />
 	<tvpspawn centerx="33004" centery="32072" centerz="9" monstername="Rotworm" spawntime="600" amount="3" radius="30" />
-	<tvpspawn centerx="32408" centery="32073" centerz="9" monstername="Cyclops" spawntime="500" amount="2" radius="50" />
+	<tvpspawn centerx="32408" centery="32073" centerz="9" monstername="Cyclops" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="33064" centery="32073" centerz="9" monstername="Rotworm" spawntime="500" amount="2" radius="30" />
 	<tvpspawn centerx="32796" centery="32074" centerz="9" monstername="Rotworm" spawntime="600" amount="1" radius="30" />
 	<tvpspawn centerx="33012" centery="32074" centerz="9" monstername="Rotworm" spawntime="500" amount="2" radius="30" />

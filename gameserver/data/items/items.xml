@@ -5310,7 +5310,6 @@
 		<attribute key="attack" value="17"/>
 		<attribute key="defense" value="14"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="slottype" value="two-handed"/>
 	</item>
 	<item id="2398" article="a" name="mace">
 		<attribute key="weight" value="3800"/>
