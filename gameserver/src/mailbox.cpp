@@ -122,7 +122,11 @@ bool Mailbox::sendItem(Item* item) const
 			if (g_game.internalMoveItem(item->getParent(), depotLocker, INDEX_WHEREEVER,
 				item, item->getItemCount(), nullptr, FLAG_NOLIMIT) == RETURNVALUE_NOERROR) {
 				player->setLastDepotId(town->getID());
-				g_game.transformItem(item, item->getID() + 1);
+				//g_game.transformItem(item, item->getID() + 1);
+				auto delivery = g_game.transformItem(item, item->getID() + 1);
+				if (auto parcel = dynamic_cast<Container*>(delivery)) {
+					player->autoCloseContainers(parcel);
+				}
 				player->onReceiveMail();
 				return true;
 			}

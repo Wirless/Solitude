@@ -226,24 +226,17 @@ function creatureSayCallback(cid, type, msg)
 	if msgcontains(msg, 'first wand') or msgcontains(msg, 'first rod') or msgcontains(msg, 'wand of vortex') or msgcontains(msg, 'snakebite rod') then
 		if table.contains({1, 2, 5, 6}, vocationId) then
 			if player:getStorageValue(PlayerStorageKeys.firstRod) == -1 then
-				selfSay('So you ask me for a ' .. ItemType(items[vocationId]):getName() .. ' to begin your adventure?', cid)
+				selfSay('Here you are young adept, take care yourself.', cid)
 				npcHandler.topic[cid] = 1
+				player:addItem(items[vocationId], 1)
+				player:setStorageValue(PlayerStorageKeys.firstRod, 1)
 			else
 				selfSay('What? I have already gave you one ' .. ItemType(items[vocationId]):getName() .. '!', cid)
 			end
 		else
 			selfSay('Sorry, you aren\'t a druid either a sorcerer.', cid)
 		end
-	elseif msgcontains(msg, 'yes') then
-		if npcHandler.topic[cid] == 1 then
-			player:addItem(items[vocationId], 1)
-			selfSay('Here you are young adept, take care yourself.', cid)
-			player:setStorageValue(PlayerStorageKeys.firstRod, 1)
-		end
-		npcHandler.topic[cid] = 0
-	elseif msgcontains(msg, 'no') and npcHandler.topic[cid] == 1 then
-		selfSay('Ok then.', cid)
-		npcHandler.topic[cid] = 0
+
 	end
 
 	return true

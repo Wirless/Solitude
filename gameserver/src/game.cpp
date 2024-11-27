@@ -2413,6 +2413,22 @@ void Game::playerMoveUpContainer(uint32_t playerId, uint8_t cid)
 		return;
 	}
 
+
+	if (auto containerOwner = parentContainer->getHoldingPlayer()) {
+		        // incase of sending a parcel to someone else
+			if (containerOwner->getGUID() != player->getGUID()) {
+			return;
+			
+		}
+		        // incase of sending parcel to yourself 
+			if (auto depot = parentContainer->getDepotLocker()) {
+			return;
+			
+		}
+		
+	}
+
+
 	player->addContainer(cid, parentContainer);
 	player->sendContainer(cid, parentContainer, parentContainer->hasParent());
 }

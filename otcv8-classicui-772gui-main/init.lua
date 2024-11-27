@@ -11,6 +11,12 @@ SERVER_LIST = {
     port = 7171,
     protocol = 772,
   },
+  {
+    host = '127.0.0.1',
+    name = "Stest",
+    port = 7171,
+    protocol = 772,
+  },
 }
 
 -- If you don't use updater or other service, set it to updater = ""
