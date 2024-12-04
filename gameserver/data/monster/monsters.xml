@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso - 8859 - 1"?>
 <monsters>
 	<!-- Stock 772 Monsters -->
+	<monster name="Magical Butterfly" file="monsters/magical butterfly.xml"/>
 	<monster name="Amazon" file="monsters/amazon.xml"/>
 	<monster name="Ancient Scarab" file="monsters/ancient scarab.xml"/>
 	<monster name="Apocalypse" file="monsters/apocalypse.xml"/>
